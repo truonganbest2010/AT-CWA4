@@ -16,8 +16,9 @@ public class Character extends MazeComponents {
     @Override
     public void render(Graphics2D g2) {
         // TODO Auto-generated method stub
+        g2.drawImage(getImage(), null, getX(), getY());
         g2.setColor(color);
-        g2.fillRect(getX(), getY(), getPreferredSize(), getPreferredSize());
+        // g2.fillRect(getX(), getY(), getPreferredSize(), getPreferredSize());
     }
     
 }

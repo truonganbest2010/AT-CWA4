@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import model.Block;
 import model.Character;
+import model.images.ImageStore;
 import view.MazePanel;
 import view.ConfigScreen;
 import view.MazePanel.GameState;
@@ -22,6 +23,9 @@ public class MazePanelListener implements ActionListener, KeyListener {
     private int gridDimensionY;
     private int preferredSize;
 
+    private Block[][] block;
+    private Character[][] character;
+ 
     public MazePanelListener(MazePanel panel){
         this.panel = panel;
         
@@ -46,6 +50,8 @@ public class MazePanelListener implements ActionListener, KeyListener {
                 preferredSize = panel.getPreferredSize();
                 grid = new char[gridDimensionX][gridDimensionY];
                 moveable = new char[gridDimensionX][gridDimensionY];
+                block = new Block[gridDimensionX][gridDimensionY];
+                character = new Character[gridDimensionX][gridDimensionY];
                 
                 grid = panel.getMazeGen().getGrid();
                 for (int y = 0; y < gridDimensionY; y++){
@@ -53,10 +59,16 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     for (int x = 0; x < gridDimensionX; x++){
                         int dx = x * preferredSize;
                         if (grid[x][y] == 'S'){
-                            panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.blue));
+                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.blue));
+                            block[x][y] = new Block(dx, dy, preferredSize, Color.black);
+                            block[x][y].setImage(ImageStore.block);
+                            panel.getMazeCanvas().getBlock().add(block[x][y]);
                         }
                         if (grid[x][y] == 'X'){
-                            panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.black));
+                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.black));
+                            block[x][y] = new Block(dx, dy, preferredSize, Color.black);
+                            block[x][y].setImage(ImageStore.block);
+                            panel.getMazeCanvas().getBlock().add(block[x][y]);
                         }
                         if (grid[x][y] == 'W'){
                             panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.red));
