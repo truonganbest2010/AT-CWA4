@@ -11,7 +11,8 @@ public class MazeCanvas extends JPanel {
 
     private MazePanel panel;
 
-    private ArrayList<MazeRender> maze = new ArrayList<>();
+    private ArrayList<MazeRender> block = new ArrayList<>();
+    private ArrayList<MazeRender> character = new ArrayList<>();
 
     public MazeCanvas(MazePanel panel, int mazeSize, int preferredSize){
         this.panel = panel;
@@ -25,14 +26,20 @@ public class MazeCanvas extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g;
         
-        for (var m: maze){
-            m.render(g2);
+        for (var b: block){
+            b.render(g2);
+        }
+        for (var c: character) {
+            c.render(g2);
         }
         
     }
 
-    public ArrayList<MazeRender> getMaze() {
-        return maze;
+    public ArrayList<MazeRender> getBlock() {
+        return block;
+    }
+    public ArrayList<MazeRender> getCharacter() {
+        return character;
     }
 
 }

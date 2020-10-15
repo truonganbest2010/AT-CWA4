@@ -9,30 +9,36 @@ public class MazeGenerator {
 
     private int dimensionX, dimensionY; // dimension of maze
     private int gridDimensionX, gridDimensionY; // dimension of output grid
-    private int preferredSize;
     
     private char[][] grid; // output grid
     private Cell[][] cells; // 2d array of Cells
     private Random random = new Random(); // The random object
 
+    private int playerPosX, playerPosY;
+
     // initialize with x and y the same
-    public MazeGenerator(int aDimension, int preferredSize) {
+    public MazeGenerator(int aDimension) {
         // Initialize
-        this(aDimension, aDimension, preferredSize);
+        this(aDimension, aDimension);
     }
 
     // constructor with different x and y
-    public MazeGenerator(int xDimension, int yDimension, int size){
+    public MazeGenerator(int xDimension, int yDimension){
         this.dimensionX = xDimension;
         this.dimensionY = yDimension;
-        preferredSize = size;
         gridDimensionX = dimensionX * 4 + 1;
         gridDimensionY = dimensionY * 2 + 1;
         grid = new char[gridDimensionX][gridDimensionY];
+        
+        // newMaze();
+        // draw();
+    }
+
+    public void newMaze(){
         init();
         generateMaze();
         solve();
-        // draw();
+        updateGrid();
     }
 
     private void init() {
@@ -185,7 +191,7 @@ public class MazeGenerator {
 
     // construct the maze and solution
     private void updateGrid() {
-        char backChar = ' ', wallChar = 'X', pathChar = '*', startChar = 'S' , winChar = '0';
+        char backChar = ' ', wallChar = 'X', pathChar = '*', startChar = 'S' , winChar = 'W';
         // fill background
         for (int x = 0; x < gridDimensionX; x++) {
             for (int y = 0; y < gridDimensionY; y++) {
@@ -242,6 +248,7 @@ public class MazeGenerator {
             }
         }
         grid[2][0] = startChar;
+        playerPosX = 2; playerPosY = 1;
         grid[gridDimensionX-3][gridDimensionY-1] = winChar;
     }
 
@@ -253,6 +260,12 @@ public class MazeGenerator {
     }
     public int getGridDimensionY() {
         return gridDimensionY;
+    }
+    public int getPlayerPosX() {
+        return playerPosX;
+    }
+    public int getPlayerPosY() {
+        return playerPosY;
     }
 
     // simply prints the map

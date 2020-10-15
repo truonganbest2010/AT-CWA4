@@ -9,6 +9,10 @@ import model.MazeGenerator;
 import java.awt.*;
 
 public class MazePanel {
+
+    public enum GameState {
+        READY, PLAYING, GAMEOVER
+    }
     
     private JFrame window;
     private MazeCanvas mazeCanvas;
@@ -19,13 +23,15 @@ public class MazePanel {
     private JButton newGameBtn = new JButton("New Game");
     private JButton configBtn = new JButton("Settings");
 
+    private GameState gameState = GameState.READY;
+
     public MazePanel(JFrame window){
         this.window = window;
         this.mazeSize = 15;
         preferredSize = 15;
-        mazeGen = new MazeGenerator(mazeSize, preferredSize);
+        mazeGen = new MazeGenerator(mazeSize);
         mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
-        window.setResizable(false);
+        // window.setResizable(false);
         window.setTitle("Maze Game");
     }
 
@@ -72,7 +78,11 @@ public class MazePanel {
     public JButton getConfigBtn() {
         return configBtn;
     }
-
-
+    public GameState getGameState() {
+        return gameState;
+    }
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
 
 }
