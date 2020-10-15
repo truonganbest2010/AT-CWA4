@@ -11,31 +11,33 @@ import java.awt.*;
 public class MazePanel {
 
     public enum GameState {
-        READY, PLAYING, GAMEOVER
+        READY, PLAYING, WIN, GAMEOVER
     }
     
     private JFrame window;
     private MazeCanvas mazeCanvas;
     private MazeGenerator mazeGen;
-    private int preferredSize;
-    private int mazeSize; // x, y same
+    private int preferredSize; // each block size
+    private int mazeSize; // map x * y
 
-    private JButton newGameBtn = new JButton("New Game");
+    private JButton newGameBtn = new JButton("Start");
     private JButton configBtn = new JButton("Settings");
 
     private GameState gameState = GameState.READY;
 
     public MazePanel(JFrame window){
         this.window = window;
-        this.mazeSize = 15;
-        preferredSize = 15;
-        mazeGen = new MazeGenerator(mazeSize);
-        mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
-        // window.setResizable(false);
+        
+        window.setResizable(false);
         window.setTitle("Maze Game");
     }
 
-    public void init(){
+    public void init(int preferredSize, int mazeSize){
+        this.mazeSize = mazeSize; 
+        this.preferredSize = preferredSize;
+        mazeGen = new MazeGenerator(mazeSize);
+        mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
+
         Container cp = window.getContentPane();
         
         TitledBorder canvasBorder = BorderFactory.createTitledBorder("");

@@ -5,7 +5,8 @@ import javax.swing.*;
 import model.Block;
 import model.Character;
 import view.MazePanel;
-import view.MenuScreen;
+import view.ConfigScreen;
+import view.MazePanel.GameState;
 
 import java.awt.Color;
 import java.awt.event.*;
@@ -33,6 +34,8 @@ public class MazePanelListener implements ActionListener, KeyListener {
 
             if (button == panel.getNewGameBtn()){
                 
+                panel.getNewGameBtn().setEnabled(false);
+                panel.setGameState(GameState.PLAYING);
                 panel.getMazeCanvas().getBlock().clear();
                 panel.getMazeCanvas().getCharacter().clear();
                 panel.getMazeGen().newMaze();
@@ -69,9 +72,9 @@ public class MazePanelListener implements ActionListener, KeyListener {
                             moveable[x][y] = 'W';
                         }
                         else moveable[x][y] = 'X';
-                        System.out.print(moveable[x][y] + "");
+                        // System.out.print(moveable[x][y] + "");
                     }
-                    System.out.println("");
+                    // System.out.println("");
                 }
                 // drawing player
                 panel.getMazeCanvas().getCharacter().add(new Character(playerPosX*preferredSize, playerPosY*preferredSize, preferredSize, Color.cyan));
@@ -83,7 +86,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
             else if (button == panel.getConfigBtn()){
                 JFrame window = panel.getWindow();
                 window.getContentPane().removeAll();
-                var menu = new MenuScreen(window);
+                var menu = new ConfigScreen(window);
                 menu.init();
                 window.pack();
                 window.revalidate();
@@ -158,6 +161,10 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     int dy = (playerPosY+1) * preferredSize;
                     panel.getMazeCanvas().getCharacter().clear();
                     panel.getMazeCanvas().getCharacter().add(new Character(dx, dy, preferredSize, Color.cyan));
+                    if (moveable[playerPosX][playerPosY+1] == 'W') {
+                        panel.setGameState(GameState.WIN);
+                        panel.getNewGameBtn().setEnabled(true);
+                    }
                     playerPosY += 1;
                 }
 
