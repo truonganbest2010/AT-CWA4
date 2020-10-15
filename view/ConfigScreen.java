@@ -21,7 +21,7 @@ public class ConfigScreen {
     public ConfigScreen(JFrame window){
         this.window = window;
         window.setTitle("Maze Game");
-        preferredSize = 12; // default
+        preferredSize = 15; // default
         mazeSize = 15; // default
         normalBtn.setSelected(true);
     }

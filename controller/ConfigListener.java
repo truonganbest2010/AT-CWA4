@@ -21,15 +21,15 @@ public class ConfigListener implements ActionListener {
 
         if (panel.getEasyBtn().isSelected()) {
             panel.setMazeSize(10);
-            panel.setPreferredSize(12);
+            panel.setPreferredSize(15);
         }
         else if (panel.getNormalBtn().isSelected()){
             panel.setMazeSize(15);
-            panel.setPreferredSize(12);
+            panel.setPreferredSize(15);
         }
         else if (panel.getHardBtn().isSelected()){
-            panel.setMazeSize(25);
-            panel.setPreferredSize(12);
+            panel.setMazeSize(20);
+            panel.setPreferredSize(15);
         }
     }
     
