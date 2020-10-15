@@ -10,6 +10,7 @@ public class MenuScreen {
 
     public MenuScreen(JFrame window){
         this.window = window;
+        window.setTitle("Settings");
     }
 
     public void init()
@@ -20,20 +21,20 @@ public class MenuScreen {
         panel.setPreferredSize(new Dimension(400, 200));
         panel.setLayout(new GridLayout(2, 1));
 
-        JButton idemoButton = new JButton("Interface Demo");
-        JButton drawingButton = new JButton("Drawing Demo");
-        panel.add(idemoButton);
-        panel.add(drawingButton);
+        JButton mazeButton = new JButton("Maze Game");
+        panel.add(mazeButton);
 
         cp.add(BorderLayout.CENTER, panel);
 
-        idemoButton.addActionListener(e -> {
-           
+        mazeButton.addActionListener(e -> {
+            window.getContentPane().removeAll();
+            var maze = new MazePanel(window);
+            maze.init();
+
+            window.pack();
+            window.revalidate();
         });
 
-        drawingButton.addActionListener(e -> {
-            
-        });
 
     }
 }
