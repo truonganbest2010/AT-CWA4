@@ -5,13 +5,11 @@ public abstract class MazeComponents implements MazeRender {
     
     private int x;
     private int y;
-    private int preferredSize;
     private BufferedImage image;
 
-    public MazeComponents(int x, int y, int preferredSize) {
+    public MazeComponents(int x, int y) {
         this.x = x;
         this.y = y;
-        this.preferredSize = preferredSize;
     }
 
     public int getX() {
@@ -19,9 +17,6 @@ public abstract class MazeComponents implements MazeRender {
     }
     public int getY() {
         return y;
-    }
-    public int getPreferredSize() {
-        return preferredSize;
     }
     public BufferedImage getImage() {
         return image;

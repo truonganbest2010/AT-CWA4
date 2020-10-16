@@ -5,7 +5,7 @@ import javax.swing.border.TitledBorder;
 
 import controller.MazePanelListener;
 import model.MazeGenerator;
-
+import java.awt.image.BufferedImage;
 import java.awt.*;
 
 public class MazePanel {
@@ -17,6 +17,11 @@ public class MazePanel {
     private JFrame window;
     private MazeCanvas mazeCanvas;
     private MazeGenerator mazeGen;
+
+    private BufferedImage style;
+    private BufferedImage character;
+
+
     private int preferredSize; // each block size
     private int mazeSize; // map x * y
 
@@ -32,9 +37,12 @@ public class MazePanel {
         window.setTitle("Maze Game");
     }
 
-    public void init(int preferredSize, int mazeSize){
+    public void init(int preferredSize, int mazeSize, BufferedImage style, BufferedImage character){
         this.mazeSize = mazeSize; 
         this.preferredSize = preferredSize;
+        this.style = style;
+        this.character = character;
+
         mazeGen = new MazeGenerator(mazeSize);
         mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
 
@@ -85,6 +93,12 @@ public class MazePanel {
     }
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
+    }
+    public BufferedImage getStyle() {
+        return style;
+    }
+    public BufferedImage getCharacter() {
+        return character;
     }
 
 }

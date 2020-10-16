@@ -24,6 +24,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
 
     private Block block;
     private Character character;
+    private String name = "An";
  
     public MazePanelListener(MazePanel panel){
         this.panel = panel;
@@ -57,25 +58,28 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         int dx = x * preferredSize;
                         if (grid[x][y] == 'S'){
                             // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.blue));
-                            block = new Block(dx, dy, preferredSize, Color.blue);
+                            block = new Block(dx, dy, preferredSize);
                             block.setImage(ImageStore.door);
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == 'X'){
                             // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.black));
-                            block = new Block(dx, dy, preferredSize, Color.black);
-                            block.setImage(ImageStore.block);
+                            block = new Block(dx, dy, preferredSize);
+                            block.setImage(panel.getStyle());
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == 'W'){
                             // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.red));
-                            block = new Block(dx, dy, preferredSize, Color.red);
-                            block.setImage(ImageStore.exit);
+                            block = new Block(dx, dy, preferredSize);
+                            block.setImage(ImageStore.door);
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == '*'){
                             grid[x][y] = ' ';
                             // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.yellow));
+                            character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, name);
+                            character.setImage(panel.getCharacter());
+                            panel.getMazeCanvas().getCharacter().add(character);
                         }
                         if (grid[x][y] == ' ' || grid[x][y] == '*'){
                             moveable[x][y] = ' ';
@@ -89,8 +93,8 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     // System.out.println("");
                 }
                 // drawing player
-                character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, preferredSize, Color.cyan);
-                character.setImage(ImageStore.character);
+                character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, name);
+                character.setImage(panel.getCharacter());
                 panel.getMazeCanvas().getCharacter().add(character);
                 
 
@@ -119,83 +123,75 @@ public class MazePanelListener implements ActionListener, KeyListener {
         // TODO Auto-generated method stub
         var key = e.getKeyCode();
 
-
-
-        switch (key){
-            case KeyEvent.VK_LEFT:
-                // System.out.println("left");
-                if (moveable[playerPosX-1][playerPosY] == 'X'){
-                    return;
-                } else {
-                    panel.getMazeCanvas().getCharacter().clear();
-                    int dx = (playerPosX-1) * preferredSize;
-                    int dy = (playerPosY) * preferredSize;
-                    character = new Character(dx, dy, preferredSize, Color.cyan);
-                    character.setImage(ImageStore.character);
-                    panel.getMazeCanvas().getCharacter().add(character);
-                    playerPosX -= 1;
-                }
-
-                break;
-
-
-            case KeyEvent.VK_RIGHT:
-                // System.out.println("right");
-                if (moveable[playerPosX+1][playerPosY] == 'X'){
-                    return;
-                } else {
-                    panel.getMazeCanvas().getCharacter().clear();
-                    int dx = (playerPosX+1) * preferredSize;
-                    int dy = (playerPosY) * preferredSize;
-                    character = new Character(dx, dy, preferredSize, Color.cyan);
-                    character.setImage(ImageStore.character);
-                    panel.getMazeCanvas().getCharacter().add(character);
-                    playerPosX += 1;
-                }
-
-                break;
-
-
-            case KeyEvent.VK_UP:
-                // System.out.println("up");
-                if (moveable[playerPosX][playerPosY-1] == 'X'){
-                    return;
-                } else {
-                    panel.getMazeCanvas().getCharacter().clear();
-                    int dx = (playerPosX) * preferredSize;
-                    int dy = (playerPosY-1) * preferredSize;
-                    character = new Character(dx, dy, preferredSize, Color.cyan);
-                    character.setImage(ImageStore.character);
-                    panel.getMazeCanvas().getCharacter().add(character);
-                    playerPosY -= 1;
-                }
-
-                break;
-
-
-            case KeyEvent.VK_DOWN:
-                // System.out.println("down");
-                if (moveable[playerPosX][playerPosY+1] == 'X'){
-                    return;
-                } else {
-                    panel.getMazeCanvas().getCharacter().clear();
-                    int dx = (playerPosX) * preferredSize;
-                    int dy = (playerPosY+1) * preferredSize;
-                    character = new Character(dx, dy, preferredSize, Color.cyan);
-                    character.setImage(ImageStore.character);
-                    panel.getMazeCanvas().getCharacter().add(character);
-                    if (moveable[playerPosX][playerPosY+1] == 'W') {
-                        panel.setGameState(GameState.WIN);
-                        panel.getNewGameBtn().setEnabled(true);
+        if (panel.getGameState() == GameState.PLAYING){
+            switch (key){
+                case KeyEvent.VK_LEFT:
+                    // System.out.println("left");
+                    if (moveable[playerPosX-1][playerPosY] == 'X'){
+                        return;
+                    } else {
+                        panel.getMazeCanvas().getCharacter().clear();
+                        int dx = (playerPosX-1) * preferredSize;
+                        int dy = (playerPosY) * preferredSize;
+                        character = new Character(dx, dy, name);
+                        character.setImage(panel.getCharacter());
+                        panel.getMazeCanvas().getCharacter().add(character);
+                        playerPosX -= 1;
                     }
-                    playerPosY += 1;
-                }
+                    break;
 
-                break;
-            
-            
+                case KeyEvent.VK_RIGHT:
+                    // System.out.println("right");
+                    if (moveable[playerPosX+1][playerPosY] == 'X'){
+                        return;
+                    } else {
+                        panel.getMazeCanvas().getCharacter().clear();
+                        int dx = (playerPosX+1) * preferredSize;
+                        int dy = (playerPosY) * preferredSize;
+                        character = new Character(dx, dy, name);
+                        character.setImage(panel.getCharacter());
+                        panel.getMazeCanvas().getCharacter().add(character);
+                        playerPosX += 1;
+                    }
+                    break;
+
+                case KeyEvent.VK_UP:
+                    // System.out.println("up");
+                    if (moveable[playerPosX][playerPosY-1] == 'X'){
+                        return;
+                    } else {
+                        panel.getMazeCanvas().getCharacter().clear();
+                        int dx = (playerPosX) * preferredSize;
+                        int dy = (playerPosY-1) * preferredSize;
+                        character = new Character(dx, dy, name);
+                        character.setImage(panel.getCharacter());
+                        panel.getMazeCanvas().getCharacter().add(character);
+                        playerPosY -= 1;
+                    }
+                    break;
+
+                case KeyEvent.VK_DOWN:
+                    // System.out.println("down");
+                    if (moveable[playerPosX][playerPosY+1] == 'X'){
+                        return;
+                    } else {
+                        panel.getMazeCanvas().getCharacter().clear();
+                        int dx = (playerPosX) * preferredSize;
+                        int dy = (playerPosY+1) * preferredSize;
+                        character = new Character(dx, dy, name);
+                        character.setImage(panel.getCharacter());
+                        panel.getMazeCanvas().getCharacter().add(character);
+                        if (moveable[playerPosX][playerPosY+1] == 'W') {
+                            panel.setGameState(GameState.WIN);
+                            panel.getNewGameBtn().setEnabled(true);
+                        }
+                        playerPosY += 1;
+                    }
+
+                    break;  
+            }
+            panel.getMazeCanvas().repaint();
         }
-        panel.getMazeCanvas().repaint();
     }
 
     @Override

@@ -7,25 +7,18 @@ import javax.imageio.ImageIO;
 
 public class ImageStore {
     
-    public static BufferedImage block;
-
-    public static BufferedImage character;
+    public static BufferedImage brick;
 
     public static BufferedImage door;
-    public static BufferedImage exit;
 
 
 
     static {
         // String cwd = System.getProperty("user.dir");
         // System.out.println("cwd" + cwd + "\n");
-        block = readImage("model/images/blockmodel/block.jpg", 15, 15);
+        brick = readImage("model/images/blockmodel/brick.jpg", 15, 15);
 
         door = readImage("model/images/blockmodel/door.jpg", 15, 15);
-        exit = readImage("model/images/blockmodel/exit.jpg", 38, 31);
-
-
-        character = readImage("model/images/charactermodel/character.png", 15, 15);
     }
 
     public static BufferedImage readImage(String path, int width, int height){
