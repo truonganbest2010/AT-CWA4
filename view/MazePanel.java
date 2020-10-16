@@ -16,6 +16,7 @@ public class MazePanel {
     
     private JFrame window;
     private MazeCanvas mazeCanvas;
+    private StatusCanvas statusCanvas;
     private MazeGenerator mazeGen;
 
     private BufferedImage style;
@@ -23,9 +24,8 @@ public class MazePanel {
 
 
     private int preferredSize; // each block size
-    private int mazeSize; // map x * y
-
     private JButton newGameBtn = new JButton("Start");
+    private JButton stopBtn = new JButton("Stop");
     private JButton configBtn = new JButton("Settings");
 
     private GameState gameState = GameState.READY;
@@ -38,29 +38,35 @@ public class MazePanel {
     }
 
     public void init(int preferredSize, int mazeSize, BufferedImage style, BufferedImage character){
-        this.mazeSize = mazeSize; 
         this.preferredSize = preferredSize;
         this.style = style;
         this.character = character;
 
         mazeGen = new MazeGenerator(mazeSize);
-        mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
-
+        
         Container cp = window.getContentPane();
         
+        mazeCanvas = new MazeCanvas(this, mazeSize, preferredSize);
         TitledBorder canvasBorder = BorderFactory.createTitledBorder("");
         mazeCanvas.setBorder(canvasBorder);
         cp.add(BorderLayout.CENTER, mazeCanvas);
 
         JPanel rightPanel = new JPanel();
         cp.add(BorderLayout.EAST, rightPanel);
-        rightPanel.setLayout(new GridLayout(2, 1));
+        rightPanel.setLayout(new GridLayout(4, 1));
 
+        statusCanvas = new StatusCanvas(this);
+        statusCanvas.setBorder(canvasBorder);
+        stopBtn.setEnabled(false);
+
+        rightPanel.add(statusCanvas);
         rightPanel.add(newGameBtn);
+        rightPanel.add(stopBtn);
         rightPanel.add(configBtn);
 
         MazePanelListener listener = new MazePanelListener(this);
         newGameBtn.addActionListener(listener);
+        stopBtn.addActionListener(listener);
         configBtn.addActionListener(listener);
         mazeCanvas.addKeyListener(listener);
         mazeCanvas.requestFocusInWindow();
@@ -76,6 +82,9 @@ public class MazePanel {
     public MazeCanvas getMazeCanvas() {
         return mazeCanvas;
     }
+    public StatusCanvas getStatusCanvas() {
+        return statusCanvas;
+    }
     public MazeGenerator getMazeGen() {
         return mazeGen;
     }
@@ -84,6 +93,9 @@ public class MazePanel {
     }
     public JButton getNewGameBtn() {
         return newGameBtn;
+    }
+    public JButton getStopBtn() {
+        return stopBtn;
     }
     public JButton getConfigBtn() {
         return configBtn;

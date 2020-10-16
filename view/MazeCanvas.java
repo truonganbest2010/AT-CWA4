@@ -60,7 +60,7 @@ public class MazeCanvas extends JPanel {
             g2.drawString("Good Job", getWidth()/4, getHeight()/2);
             repaint();
         }
-        else { // GAME OVER
+        else if (panel.getGameState() == GameState.GAMEOVER){ // GAME OVER
             for (var b: block){
                 b.render(g2);
             }

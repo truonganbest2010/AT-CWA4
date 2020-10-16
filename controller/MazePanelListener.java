@@ -37,8 +37,10 @@ public class MazePanelListener implements ActionListener, KeyListener {
             JButton button = (JButton) e.getSource();
 
             if (button == panel.getNewGameBtn()){
-                
                 panel.getNewGameBtn().setEnabled(false);
+                panel.getStopBtn().setEnabled(true);
+                panel.getConfigBtn().setEnabled(false);
+
                 panel.setGameState(GameState.PLAYING);
                 panel.getMazeCanvas().getBlock().clear();
                 panel.getMazeCanvas().getCharacter().clear();
@@ -100,7 +102,15 @@ public class MazePanelListener implements ActionListener, KeyListener {
 
                 panel.getMazeCanvas().repaint();
                 // System.out.println("x");
-            } 
+            }
+
+            else if (button == panel.getStopBtn()){
+                panel.setGameState(GameState.GAMEOVER);
+                panel.getStopBtn().setEnabled(false);
+                panel.getNewGameBtn().setEnabled(true);
+                panel.getConfigBtn().setEnabled(true);
+                panel.getMazeCanvas().repaint();
+            }
             else if (button == panel.getConfigBtn()){
                 JFrame window = panel.getWindow();
                 window.getContentPane().removeAll();
@@ -184,6 +194,8 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         if (moveable[playerPosX][playerPosY+1] == 'W') {
                             panel.setGameState(GameState.WIN);
                             panel.getNewGameBtn().setEnabled(true);
+                            panel.getStopBtn().setEnabled(false);
+                            panel.getConfigBtn().setEnabled(true);
                         }
                         playerPosY += 1;
                     }
