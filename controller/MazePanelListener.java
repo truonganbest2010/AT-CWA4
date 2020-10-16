@@ -9,7 +9,6 @@ import view.MazePanel;
 import view.ConfigScreen;
 import view.MazePanel.GameState;
 
-import java.awt.Color;
 import java.awt.event.*;
 
 
@@ -24,8 +23,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
 
     private Block block;
     private Character character;
-    private String name = "An";
- 
+
     public MazePanelListener(MazePanel panel){
         this.panel = panel;
         
@@ -59,27 +57,23 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     for (int x = 0; x < gridDimensionX; x++){
                         int dx = x * preferredSize;
                         if (grid[x][y] == 'S'){
-                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.blue));
-                            block = new Block(dx, dy, preferredSize);
+                            block = new Block(dx, dy, preferredSize, false);
                             block.setImage(ImageStore.door);
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == 'X'){
-                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.black));
-                            block = new Block(dx, dy, preferredSize);
+                            block = new Block(dx, dy, preferredSize, panel.getLine());
                             block.setImage(panel.getStyle());
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == 'W'){
-                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.red));
-                            block = new Block(dx, dy, preferredSize);
+                            block = new Block(dx, dy, preferredSize, false);
                             block.setImage(ImageStore.door);
                             panel.getMazeCanvas().getBlock().add(block);
                         }
                         if (grid[x][y] == '*'){
-                            grid[x][y] = ' ';
-                            // panel.getMazeCanvas().getBlock().add(new Block(dx, dy, preferredSize, Color.yellow));
-                            character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, name);
+                            // grid[x][y] = ' ';
+                            character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, panel.getName());
                             character.setImage(panel.getCharacter());
                             panel.getMazeCanvas().getCharacter().add(character);
                         }
@@ -95,12 +89,13 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     // System.out.println("");
                 }
                 // drawing player
-                character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, name);
+                character = new Character(playerPosX*preferredSize, playerPosY*preferredSize, panel.getName());
                 character.setImage(panel.getCharacter());
                 panel.getMazeCanvas().getCharacter().add(character);
                 
 
                 panel.getMazeCanvas().repaint();
+                panel.getStatusCanvas().repaint();
                 // System.out.println("x");
             }
 
@@ -110,6 +105,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                 panel.getNewGameBtn().setEnabled(true);
                 panel.getConfigBtn().setEnabled(true);
                 panel.getMazeCanvas().repaint();
+                panel.getStatusCanvas().repaint();
             }
             else if (button == panel.getConfigBtn()){
                 JFrame window = panel.getWindow();
@@ -143,7 +139,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         panel.getMazeCanvas().getCharacter().clear();
                         int dx = (playerPosX-1) * preferredSize;
                         int dy = (playerPosY) * preferredSize;
-                        character = new Character(dx, dy, name);
+                        character = new Character(dx, dy, panel.getName());
                         character.setImage(panel.getCharacter());
                         panel.getMazeCanvas().getCharacter().add(character);
                         playerPosX -= 1;
@@ -158,7 +154,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         panel.getMazeCanvas().getCharacter().clear();
                         int dx = (playerPosX+1) * preferredSize;
                         int dy = (playerPosY) * preferredSize;
-                        character = new Character(dx, dy, name);
+                        character = new Character(dx, dy, panel.getName());
                         character.setImage(panel.getCharacter());
                         panel.getMazeCanvas().getCharacter().add(character);
                         playerPosX += 1;
@@ -173,7 +169,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         panel.getMazeCanvas().getCharacter().clear();
                         int dx = (playerPosX) * preferredSize;
                         int dy = (playerPosY-1) * preferredSize;
-                        character = new Character(dx, dy, name);
+                        character = new Character(dx, dy, panel.getName());
                         character.setImage(panel.getCharacter());
                         panel.getMazeCanvas().getCharacter().add(character);
                         playerPosY -= 1;
@@ -188,7 +184,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                         panel.getMazeCanvas().getCharacter().clear();
                         int dx = (playerPosX) * preferredSize;
                         int dy = (playerPosY+1) * preferredSize;
-                        character = new Character(dx, dy, name);
+                        character = new Character(dx, dy, panel.getName());
                         character.setImage(panel.getCharacter());
                         panel.getMazeCanvas().getCharacter().add(character);
                         if (moveable[playerPosX][playerPosY+1] == 'W') {
@@ -203,6 +199,7 @@ public class MazePanelListener implements ActionListener, KeyListener {
                     break;  
             }
             panel.getMazeCanvas().repaint();
+            panel.getStatusCanvas().repaint();
         }
     }
 

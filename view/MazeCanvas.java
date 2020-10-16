@@ -33,8 +33,8 @@ public class MazeCanvas extends JPanel {
             setBackground(Color.BLACK);
             g2.setColor(Color.WHITE);
             g2.setFont(fontS);
-            g2.drawString("Maze", getWidth()/2, getHeight()/3);
-            g2.drawString("Click <Start> to play", getWidth()/3, getHeight()/3 + getHeight()/5);
+            g2.drawString("Maze", getWidth()/3, getHeight()/3);
+            g2.drawString("Click <Start> to play", getWidth()/5, getHeight()/3 + getHeight()/5);
             repaint();
         }
         else if (panel.getGameState() == GameState.PLAYING){
@@ -54,10 +54,9 @@ public class MazeCanvas extends JPanel {
                 c.render(g2);
             }
             g2.setColor(new Color(0, 200, 255, 96));
-            g2.fillRect(0, 0, getWidth(), getHeight());
-            
-            g2.setFont(fontS);
-            g2.drawString("Good Job", getWidth()/4, getHeight()/2);
+            g2.fillRect(0, 0, getWidth(), getHeight());     
+            // g2.setFont(fontS);
+            // g2.drawString("Good Job", getWidth()/4, getHeight()/2);
             repaint();
         }
         else if (panel.getGameState() == GameState.GAMEOVER){ // GAME OVER
@@ -69,8 +68,8 @@ public class MazeCanvas extends JPanel {
             }
             g2.setColor(new Color(255, 51, 51, 96));
             g2.fillRect(0, 0, getWidth(), getHeight());
-            g2.setFont(fontS);
-            g2.drawString("Game Over", getWidth()/4, getHeight()/2);
+            // g2.setFont(fontS);
+            // g2.drawString("Game Over", getWidth()/4, getHeight()/2);
             repaint();
         }
         

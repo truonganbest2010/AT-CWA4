@@ -20,7 +20,7 @@ public class ConfigListener implements ActionListener {
         // TODO Auto-generated method stub
         // JButton button = (JButton) e.getSource();
 
-        int scale = 7;
+        int scale = 5;
 
         if (panel.getEasyBtn().isSelected()) {
             panel.setMazeSize(10);
@@ -41,16 +41,25 @@ public class ConfigListener implements ActionListener {
         if (panel.getTreeBtn().isSelected()){
             panel.setStyle(ImageStore.readImage("model/images/blockmodel/tree.png", panel.getPreferredSize(), panel.getPreferredSize()));
         }
+        if (panel.getFenceBtn().isSelected()){
+            panel.setStyle(ImageStore.readImage("model/images/blockmodel/fence.png", panel.getPreferredSize(), panel.getPreferredSize()));
+        }
+        if (panel.getIronBtn().isSelected()){
+            panel.setStyle(ImageStore.readImage("model/images/blockmodel/iron.png", panel.getPreferredSize(), panel.getPreferredSize()));
+        }
 
         if (panel.getMarioBtn().isSelected()){
             panel.setCharacter(ImageStore.readImage("model/images/charactermodel/mario.png", panel.getPreferredSize()+scale, panel.getPreferredSize()+scale));
         }
-        if (panel.getKnightBtn().isSelected()){
-            panel.setCharacter(ImageStore.readImage("model/images/charactermodel/knight.png", panel.getPreferredSize()+scale, panel.getPreferredSize()+scale));
+        if (panel.getCharmanderBtn().isSelected()){
+            panel.setCharacter(ImageStore.readImage("model/images/charactermodel/charmander.png", panel.getPreferredSize()+scale, panel.getPreferredSize()+scale));
         }
-        if (panel.getZombieBtn().isSelected()){
-            panel.setCharacter(ImageStore.readImage("model/images/charactermodel/zombie.png", panel.getPreferredSize()+scale, panel.getPreferredSize()+scale));
+        if (panel.getMagnetoBtn().isSelected()){
+            panel.setCharacter(ImageStore.readImage("model/images/charactermodel/magneto.png", panel.getPreferredSize()+scale, panel.getPreferredSize()+scale));
+        }
 
+        if (panel.getDrawLineCheck().isSelected()){
+            panel.setLine(true);
         }
 
     }

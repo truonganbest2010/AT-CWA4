@@ -21,6 +21,8 @@ public class MazePanel {
 
     private BufferedImage style;
     private BufferedImage character;
+    private boolean line;
+    private String name;
 
 
     private int preferredSize; // each block size
@@ -37,10 +39,16 @@ public class MazePanel {
         window.setTitle("Maze Game");
     }
 
-    public void init(int preferredSize, int mazeSize, BufferedImage style, BufferedImage character){
+    public void init(int preferredSize, int mazeSize, BufferedImage style, BufferedImage character, boolean line, String name){
         this.preferredSize = preferredSize;
         this.style = style;
         this.character = character;
+        this.line = line;
+        // this.name = name;
+
+        if (name.length() == 0) {
+            this.name = "player";
+        } else this.name = name;
 
         mazeGen = new MazeGenerator(mazeSize);
         
@@ -111,6 +119,12 @@ public class MazePanel {
     }
     public BufferedImage getCharacter() {
         return character;
+    }
+    public boolean getLine(){
+        return line;
+    }
+    public String getName() {
+        return name;
     }
 
 }
